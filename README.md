@@ -1,4 +1,8 @@
 # Project - Hello DBMS+
+</br>
+
+# Project's context
+/
 
 </br>
 </br>
@@ -89,7 +93,7 @@ Think of a phone contact list: if numbers are correct (accuracy), every contact 
 
 
 
-A **DBMS (Database Management System)** is software used to store, organize, query, update, and secure data.
+**DBMS (Database Management System)** is software used to store, organize, query, update, and secure data.
 
 ### **Types & Examples**
 
@@ -251,9 +255,3 @@ Joining tables is like matching a list of students with a list of grades to see 
 * ASCII diagrams for visual understanding.
 * Everyday-life comparisons for non-technical readers.
 * Clear, human writing rather than robotic explanations.
-
----
-</br>
-</br>
-
-# Project's context

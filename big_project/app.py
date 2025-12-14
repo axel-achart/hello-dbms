@@ -32,12 +32,12 @@ def index():
     conn.close()
     
     observations = [
-        "Number of countries: 142",
-        "Average energy usage: Coal 18.0%, Gas 26.0%, Oil 16.5%, Hydro 27.8%, Renewable 6.2%, Nuclear 5.1%",
-        "Top coal users: Kosovo (96.9%), Botswana (95.8%), South Africa (93.0%)",
-        "Top renewable users: Denmark (55.8%), Kenya (45.7%), Nicaragua (45.0%)",
-        "112 countries have no nuclear energy",
-        "Regions show varying reliance on sources, e.g., Middle East heavily on Gas (64.1%)"
+        "Nombre de pays : 141",
+        "Consommation énergétique moyenne : Charbon 18,0 %, Gaz 26,0 %, Pétrole 16,5 %, Hydroélectricité 27,8 %, Énergies renouvelables 6,2 %, Nucléaire 5,1 %",
+        "Principaux consommateurs de charbon : Kosovo (96,9 %), Botswana (95,8 %), Afrique du Sud (93,0 %)",
+        "Principaux utilisateurs d’énergies renouvelables : Danemark (55,8 %), Kenya (45,7 %), Nicaragua (45,0 %)",
+        "112 pays ne possèdent pas d’énergie nucléaire",
+        "Les régions présentent une dépendance variable aux différentes sources d’énergie ; par exemple, le Moyen-Orient est fortement dépendant du gaz (64,1 %)."
     ]
     
     return render_template('index.html', countries=countries, all_countries=all_countries, all_regions=all_regions, regions=regions, observations=observations)
@@ -46,7 +46,7 @@ def index():
 def country_detail():
     entity = request.args.get('country')
     if not entity:
-        return "No entity selected", 400
+        return "Aucun pays sélectionné", 400
     
     conn = get_db_connection()
     
@@ -62,7 +62,7 @@ def country_detail():
             table = 'World'
             name = 'Region'
         else:
-            return "Entity not found", 404
+            return "Aucune entité trouvée", 404
     
     # Calculate contributions
     contributions = {}

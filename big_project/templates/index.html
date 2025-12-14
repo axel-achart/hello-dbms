@@ -68,12 +68,19 @@
         {% endfor %}
     </table>
 
-    <h2>Sélectionner un Pays</h2>
+    <h2>Sélectionner un Pays ou une Région</h2>
     <form action="/country" method="get">
         <select name="country">
-            {% for c in all_countries %}
-            <option value="{{ c['Country'] }}">{{ c['Country'] }}</option>
-            {% endfor %}
+            <optgroup label="Pays">
+                {% for c in all_countries %}
+                <option value="{{ c['Country'] }}">{{ c['Country'] }}</option>
+                {% endfor %}
+            </optgroup>
+            <optgroup label="Régions">
+                {% for r in all_regions %}
+                <option value="{{ r['Region'] }}">{{ r['Region'] }}</option>
+                {% endfor %}
+            </optgroup>
         </select>
         <button type="submit">Voir Détails</button>
     </form>

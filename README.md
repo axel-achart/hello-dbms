@@ -2,7 +2,13 @@
 </br>
 
 # Project's context
-/
+In a world where data volumes are growing exponentially, mastering how data is stored, managed, and analyzed has become a key skill in IT and Data-related fields. Companies rely more than ever on reliable, clean, and well-structured data to support decision-making and improve performance.
+
+This project is part of an academic journey focused on understanding the fundamentals of data, database management systems (DBMS), and SQL. It aims to explore how data is organized, queried, and exploited through practical use cases and real-world datasets.
+
+Through a combination of **scientific research, SQL exercises, and hands-on projects**, this work covers essential concepts such as data quality, relational and non-relational databases, data modeling, and SQL querying. The objective is not only to develop technical skills, but also to make these concepts understandable to non-technical audiences by using clear explanations, examples, and simple metaphors.
+
+This project serves as a solid foundation for further work in **Data Science, Data Engineering, and Software Development**, while emphasizing clarity, structure, and practical application.
 
 </br>
 </br>

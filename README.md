@@ -1,5 +1,4 @@
-# Project - Hello DBMS+
-</br>
+# Hello DBMS+ - English
 
 # Project's context
 In a world where data volumes are growing exponentially, mastering how data is stored, managed, and analyzed has become a key skill in IT and Data-related fields. Companies rely more than ever on reliable, clean, and well-structured data to support decision-making and improve performance.
@@ -261,3 +260,126 @@ Joining tables is like matching a list of students with a list of grades to see 
 * ASCII diagrams for visual understanding.
 * Everyday-life comparisons for non-technical readers.
 * Clear, human writing rather than robotic explanations.
+
+### Resources
+
+Project guidelines: [Link to PDF](https://drive.google.com/file/d/1-bmoM_32Xs6CF3KwGkjzLHR33h2Dj5tU/view?usp=sharing)
+
+---
+
+# Hello DBMS+ - Français
+
+## Contexte du projet
+Dans un monde où le volume de données croît de façon exponentielle, la maîtrise du stockage, de la gestion et de l'analyse des données est devenue une compétence essentielle dans les domaines de l'informatique et des données. Les entreprises s'appuient plus que jamais sur des données fiables, propres et bien structurées pour faciliter la prise de décision et améliorer leurs performances.
+
+Ce projet s'inscrit dans un parcours académique axé sur la compréhension des fondamentaux des données, des systèmes de gestion de bases de données (SGBD) et du langage SQL. Il vise à explorer comment les données sont organisées, interrogées et exploitées à travers des cas d'usage concrets et des jeux de données réels.
+
+Combinant recherche scientifique, exercices SQL et projets pratiques, ce travail aborde des concepts essentiels tels que la qualité des données, les bases de données relationnelles et non relationnelles, la modélisation des données et les requêtes SQL. L'objectif est non seulement de développer des compétences techniques, mais aussi de rendre ces concepts accessibles à un public non spécialisé grâce à des explications claires, des exemples et des métaphores simples.
+
+Ce projet constitue une base solide pour les travaux futurs en **science des données, en ingénierie des données et en développement logiciel**, tout en mettant l'accent sur la clarté, la structure et l'application pratique.
+
+## Veille Technologique
+A. Une donnée est une *observation* **dénuée de sens** que l'on peut **stocker, transformer, généraliser, centraliser** puis **exploiter.**
+Elle peut se présenter sous n'importe quel forme de mesure.
+
+B. Les critères principaux sont **l’exactitude, la cohérence, la validité, l’unicité, l’intégrité et la ponctualité.**
+Ces critères sont mesurables et réglementés par des standards reconnus.
+
+C. **Un Data Lake** est une base de **données brutes**. Structure facile à aménager et peu coûteuse. Solution **abordable et flexible**. Utilisée en *Data Science*.
+<br><br>**Un Data Warehouse** est une base de données centralisée qui a des **données déjà nettoyées, transformées et modélisées**. Permet de réaliser de la *BI* fiable avec des **bonnes performances**.
+<br><br>**Une Lake House** est une *plateforme* de base de données qui vient faire le pont entre les technologies d'un *warehouse* et d'un *lake*. Structure la **plus flexible et fiable**, utilisée en *BI **ET** Data Science*.
+
+***Insérer schemas***
+
+D. Un *système de gestion de base de données* est un **outil** qui permet d'intéragir avec des bases de données et les données en elle-même. Il permet de **créer, supprimer et mettre à jour** les données de manière optimale.
+
+E. Il existe 2 grandes familles de types de base de données.
+
+Pour les **données structurées** (SQL) on peut utiliser des **SGBD** :<br>
+
+ - **MySQL**, *open-source*, outil le plus connu et utilisé dans le monde.
+ - **Microsoft SQL Server**, SGBD de l'environnement *Microsoft*.
+
+Pour les **données non structurées** (NoSQL) on utilise des **SGBD** dits **NoSQL**.<br>
+
+ - **MongoDB**, outil pour *app web*, permet d'utiliser **JSON**
+ - **Neo4j**, outil qui utilise des **noeuds** et des **arêtes**.
+
+F. Les **clés** sont des manières d'**identifier** des données et leurs valeurs dans une base de données **structurée**. <br><br> Une **clé primaire** est une **colonne** d'une table qui sert d'**identifiant** **unique** pour chaque ligne.
+<br>Une **clé étrangère** permet de lier une table **étrangère**, et sa clé **primaire** à la propre **clé primaire** d'une **autre table**.
+
+G. Les principes **ACID**
+- **Atomicité** → tout ou rien. Cela signifie qu'une transaction est soit entièrement réussie, soit entièrement annulée. Par exemple, si vous transférez de l'argent d'un compte bancaire à un autre, soit l'argent est débité d'un compte et crédité sur l'autre, soit aucune des deux opérations n'est effectuée.
+
+- **Cohérence** → les règles et les contraintes d'intégrité sont toujours respectées. Cela signifie que les transactions ne doivent pas violer les règles de la base de données, comme les contraintes de clé primaire ou les contraintes de clé étrangère.
+
+- **Isolement** → les transactions simultanées ne s'interfèrent pas. Cela signifie que les transactions sont exécutées de manière indépendante les unes des autres, même si elles sont exécutées en même temps.
+
+- **Durabilité** → une fois sauvegardées, les données restent en sécurité même après un crash. Cela signifie que les données confirmées restent dans la base de données même en cas de panne de courant ou de crash du système.
+
+### Métaphore
+Retirer de l'argent d'un distributeur automatique : soit l'opération entière réussit, soit rien ne change — et une fois confirmée, elle reste enregistrée.
+
+### H. Définition de Merise et UML. Expliquez leur utilisation avec des diagrammes.
+
+#### Merise
+Merise est une méthode française pour modéliser les systèmes d'information. Elle sépare les niveaux conceptuel, logique et physique. Elle est utilisée pour la modélisation de bases de données et les grands projets informatiques structurés.
+
+#### UML
+UML (Unified Modeling Language) est un langage de modélisation universel avec des diagrammes (classe, cas d'utilisation, séquence, activité). Il est utilisé pour concevoir l'architecture logicielle et les systèmes orientés objet.
+
+#### Exemple de Merise (Modèle Conceptuel)
+```
+[CLIENT] ---- (1,N) ---- [ORDER]
+```
+
+#### Diagramme de Classe UML
+```
+class Client {
+  +id: int
+  +name: string
+}
+
+class Order {
+  +id: int
+  +date: date
+}
+
+Client "1" -- "*" Order
+```
+
+### Métaphore
+Modéliser avec Merise ou UML, c'est comme créer des plans architecturaux avant de construire une maison — en s'assurant que rien ne s'effondre une fois le développement commencé.
+
+### I. Définition de SQL. Fournir des commandes courantes et expliquer les jointures possibles.
+
+#### Définition
+SQL (Structured Query Language) est le langage standard pour gérer les bases de données relationnelles via des requêtes.
+
+#### Commandes les plus courantes
+- **SELECT** → récupérer des données
+- **INSERT** → ajouter de nouvelles données
+- **UPDATE** → modifier des données existantes
+- **DELETE** → supprimer des données
+- **CREATE TABLE / ALTER TABLE** → modifier le schéma
+- **GROUP BY, ORDER BY** → agrégation et tri
+
+#### Types de Jointures
+- **INNER JOIN** → seulement les lignes correspondantes
+- **LEFT JOIN** → toutes les lignes de gauche + correspondances
+- **RIGHT JOIN** → toutes les lignes de droite + correspondances
+- **FULL OUTER JOIN** → toutes les lignes, correspondantes ou non
+- **CROSS JOIN** → toutes les combinaisons
+
+### Métaphore
+Joindre des tables, c'est comme associer une liste d'étudiants avec une liste de notes pour voir quelle note appartient à quel étudiant.
+
+
+### Glossaire Simplifié
+- **Atomicité** : Tout ou rien.
+- **Cohérence** : Les règles et les contraintes d'intégrité sont toujours respectées.
+- **Isolement** : Les transactions simultanées ne s'interfèrent pas.
+- **Durabilité** : Une fois sauvegardées, les données restent en sécurité même après un crash.
+- **Merise** : Méthode française pour modéliser les systèmes d'information.
+- **UML** : Langage de modélisation universel avec des diagrammes.
+- **SQL** : Langage standard pour gérer les bases de données relationnelles.

@@ -1,0 +1,413 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>BD Relationnelles vs Non Relationnelles</title>
+    <style>
+        body {
+            font-family: 'Segoe UI', sans-serif;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            padding: 30px;
+            margin: 0;
+        }
+        
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+        }
+        
+        h1 {
+            text-align: center;
+            color: white;
+            font-size: 2.5em;
+            margin-bottom: 40px;
+            text-shadow: 2px 2px 4px rgba(0,0,0,0.3);
+        }
+        
+        .comparison-grid {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 25px;
+            margin-bottom: 30px;
+        }
+        
+        .card {
+            background: white;
+            border-radius: 15px;
+            padding: 30px;
+            box-shadow: 0 10px 30px rgba(0,0,0,0.3);
+        }
+        
+        .card h2 {
+            color: white;
+            padding: 15px;
+            margin: -30px -30px 20px -30px;
+            border-radius: 15px 15px 0 0;
+            text-align: center;
+            font-size: 1.6em;
+        }
+        
+        .relational { background: linear-gradient(135deg, #667eea 0%, #764ba2 100%); }
+        .non-relational { background: linear-gradient(135deg, #f093fb 0%, #f5576c 100%); }
+        
+        .definition {
+            background: #f8f9fa;
+            padding: 15px;
+            border-radius: 8px;
+            margin-bottom: 20px;
+            border-left: 4px solid #667eea;
+        }
+        
+        .visual {
+            background: #fff;
+            border: 2px solid #e9ecef;
+            padding: 15px;
+            border-radius: 8px;
+            margin: 15px 0;
+        }
+        
+        .visual h4 {
+            color: #667eea;
+            margin-bottom: 10px;
+            font-size: 1em;
+        }
+        
+        table {
+            width: 100%;
+            border-collapse: collapse;
+            font-size: 0.85em;
+        }
+        
+        th {
+            background: #667eea;
+            color: white;
+            padding: 8px;
+            text-align: left;
+        }
+        
+        td {
+            padding: 6px 8px;
+            border: 1px solid #dee2e6;
+        }
+        
+        tr:nth-child(even) {
+            background: #f8f9fa;
+        }
+        
+        .json-box {
+            background: #282c34;
+            color: #abb2bf;
+            padding: 12px;
+            border-radius: 6px;
+            font-family: 'Courier New', monospace;
+            font-size: 0.85em;
+            overflow-x: auto;
+        }
+        
+        .key { color: #e06c75; }
+        .string { color: #98c379; }
+        .number { color: #d19a66; }
+        
+        .features {
+            margin: 15px 0;
+        }
+        
+        .features h3 {
+            color: #333;
+            font-size: 1.1em;
+            margin-bottom: 10px;
+        }
+        
+        .features ul {
+            margin: 0;
+            padding-left: 20px;
+        }
+        
+        .features li {
+            margin: 6px 0;
+        }
+        
+        .examples {
+            background: #e3f2fd;
+            padding: 15px;
+            border-radius: 8px;
+            margin-top: 15px;
+        }
+        
+        .examples h3 {
+            color: #1565c0;
+            font-size: 1.1em;
+            margin-bottom: 8px;
+        }
+        
+        .example-tags {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 8px;
+            margin-top: 10px;
+        }
+        
+        .tag {
+            background: white;
+            padding: 6px 12px;
+            border-radius: 20px;
+            font-size: 0.85em;
+            font-weight: 600;
+            border: 2px solid #667eea;
+            color: #667eea;
+        }
+        
+        .diff-table {
+            background: white;
+            border-radius: 15px;
+            padding: 30px;
+            box-shadow: 0 10px 30px rgba(0,0,0,0.3);
+        }
+        
+        .diff-table h2 {
+            color: #667eea;
+            text-align: center;
+            margin-bottom: 20px;
+        }
+        
+        .diff-table table {
+            width: 100%;
+            font-size: 0.95em;
+        }
+        
+        .diff-table th {
+            background: #667eea;
+            padding: 12px;
+        }
+        
+        .diff-table td {
+            padding: 10px;
+        }
+        
+        .diff-table tr:hover {
+            background: #f8f9fa;
+        }
+        
+        @media (max-width: 768px) {
+            .comparison-grid {
+                grid-template-columns: 1fr;
+            }
+            
+            h1 {
+                font-size: 1.8em;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h1>🗄️ Bases de Données : Relationnelles vs Non Relationnelles</h1>
+        
+        <div class="comparison-grid">
+            <!-- BASE DE DONNÉES RELATIONNELLE -->
+            <div class="card">
+                <h2 class="relational">📊 Base de Données Relationnelle</h2>
+                
+                <div class="definition">
+                    <strong>Définition :</strong> Organise les données dans des <strong>tables</strong> (lignes et colonnes) reliées entre elles par des <strong>clés</strong>. Utilise le langage <strong>SQL</strong>.
+                </div>
+                
+                <div class="visual">
+                    <h4>📋 Structure : Tables reliées</h4>
+                    <table>
+                        <caption style="font-weight: bold; margin-bottom: 5px;">Table CLIENTS</caption>
+                        <tr>
+                            <th>ID</th>
+                            <th>Nom</th>
+                            <th>Email</th>
+                        </tr>
+                        <tr>
+                            <td>1</td>
+                            <td>Dupont</td>
+                            <td>dupont@mail.fr</td>
+                        </tr>
+                        <tr>
+                            <td>2</td>
+                            <td>Martin</td>
+                            <td>martin@mail.fr</td>
+                        </tr>
+                    </table>
+                    
+                    <table style="margin-top: 10px;">
+                        <caption style="font-weight: bold; margin-bottom: 5px;">Table COMMANDES</caption>
+                        <tr>
+                            <th>ID</th>
+                            <th>ID_Client</th>
+                            <th>Montant</th>
+                        </tr>
+                        <tr>
+                            <td>101</td>
+                            <td>1</td>
+                            <td>150€</td>
+                        </tr>
+                        <tr>
+                            <td>102</td>
+                            <td>2</td>
+                            <td>200€</td>
+                        </tr>
+                    </table>
+                    <p style="margin-top: 8px; color: #667eea; text-align: center;">
+                        ↔️ <em>Reliées par ID_Client (clé étrangère)</em>
+                    </p>
+                </div>
+                
+                <div class="features">
+                    <h3>✨ Caractéristiques clés</h3>
+                    <ul>
+                        <li><strong>Structure rigide</strong> : schéma défini à l'avance</li>
+                        <li><strong>ACID</strong> : transactions fiables et cohérentes</li>
+                        <li><strong>Relations</strong> : liens entre tables via clés</li>
+                        <li><strong>SQL</strong> : langage standardisé</li>
+                        <li><strong>Intégrité</strong> : contraintes strictes sur les données</li>
+                    </ul>
+                </div>
+                
+                <div class="examples">
+                    <h3>🔧 Exemples de SGBD</h3>
+                    <div class="example-tags">
+                        <span class="tag">MySQL</span>
+                        <span class="tag">PostgreSQL</span>
+                        <span class="tag">Oracle</span>
+                        <span class="tag">SQL Server</span>
+                    </div>
+                    
+                    <h3 style="margin-top: 15px;">💼 Applications typiques</h3>
+                    <ul style="margin-top: 5px;">
+                        <li>Systèmes bancaires et financiers</li>
+                        <li>E-commerce (gestion produits, commandes)</li>
+                        <li>ERP et CRM d'entreprise</li>
+                        <li>Systèmes de réservation</li>
+                    </ul>
+                </div>
+            </div>
+            
+            <!-- BASE DE DONNÉES NON RELATIONNELLE -->
+            <div class="card">
+                <h2 class="non-relational">🌐 Base de Données Non Relationnelle (NoSQL)</h2>
+                
+                <div class="definition">
+                    <strong>Définition :</strong> Stocke les données de manière <strong>flexible</strong> sans schéma fixe. Pas de tables ni de relations obligatoires. Formats variés : documents, clés-valeurs, graphes...
+                </div>
+                
+                <div class="visual">
+                    <h4>📄 Structure : Document JSON (exemple)</h4>
+                    <div class="json-box">
+<pre>{
+  <span class="key">"_id"</span>: <span class="string">"1"</span>,
+  <span class="key">"nom"</span>: <span class="string">"Dupont"</span>,
+  <span class="key">"email"</span>: <span class="string">"dupont@mail.fr"</span>,
+  <span class="key">"commandes"</span>: [
+    {
+      <span class="key">"id"</span>: <span class="number">101</span>,
+      <span class="key">"montant"</span>: <span class="number">150</span>,
+      <span class="key">"date"</span>: <span class="string">"2025-11-10"</span>
+    },
+    {
+      <span class="key">"id"</span>: <span class="number">102</span>,
+      <span class="key">"montant"</span>: <span class="number">200</span>,
+      <span class="key">"date"</span>: <span class="string">"2025-11-12"</span>
+    }
+  ]
+}</pre>
+                    </div>
+                    <p style="margin-top: 8px; color: #f5576c; text-align: center;">
+                        💡 <em>Tout dans un seul document, pas de jointures</em>
+                    </p>
+                </div>
+                
+                <div class="features">
+                    <h3>✨ Caractéristiques clés</h3>
+                    <ul>
+                        <li><strong>Schéma flexible</strong> : adaptatif aux changements</li>
+                        <li><strong>Scalabilité horizontale</strong> : facile à distribuer</li>
+                        <li><strong>Performance</strong> : optimisée pour certains usages</li>
+                        <li><strong>Types variés</strong> : documents, clés-valeurs, graphes</li>
+                        <li><strong>BASE</strong> : cohérence éventuelle (vs ACID)</li>
+                    </ul>
+                </div>
+                
+                <div class="examples">
+                    <h3>🔧 Exemples de SGBD</h3>
+                    <div class="example-tags">
+                        <span class="tag">MongoDB</span>
+                        <span class="tag">Redis</span>
+                        <span class="tag">Cassandra</span>
+                        <span class="tag">Neo4j</span>
+                    </div>
+                    
+                    <h3 style="margin-top: 15px;">💼 Applications typiques</h3>
+                    <ul style="margin-top: 5px;">
+                        <li>Réseaux sociaux (posts, profils, relations)</li>
+                        <li>Applications temps réel (chat, gaming)</li>
+                        <li>Big Data et analytics</li>
+                        <li>IoT et logs (volumes massifs)</li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+        
+        <!-- TABLEAU COMPARATIF -->
+        <div class="diff-table">
+            <h2>⚖️ Différences principales</h2>
+            <table>
+                <thead>
+                    <tr>
+                        <th>Critère</th>
+                        <th>Relationnelle (SQL)</th>
+                        <th>Non Relationnelle (NoSQL)</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr>
+                        <td><strong>Structure</strong></td>
+                        <td>Tables avec lignes/colonnes</td>
+                        <td>Documents, clés-valeurs, graphes...</td>
+                    </tr>
+                    <tr>
+                        <td><strong>Schéma</strong></td>
+                        <td>Rigide, défini à l'avance</td>
+                        <td>Flexible, adaptable</td>
+                    </tr>
+                    <tr>
+                        <td><strong>Relations</strong></td>
+                        <td>Jointures entre tables</td>
+                        <td>Données imbriquées ou références</td>
+                    </tr>
+                    <tr>
+                        <td><strong>Langage</strong></td>
+                        <td>SQL standardisé</td>
+                        <td>Propriétaire selon le SGBD</td>
+                    </tr>
+                    <tr>
+                        <td><strong>Scalabilité</strong></td>
+                        <td>Verticale (plus de puissance)</td>
+                        <td>Horizontale (plus de serveurs)</td>
+                    </tr>
+                    <tr>
+                        <td><strong>Cohérence</strong></td>
+                        <td>ACID (stricte)</td>
+                        <td>BASE (éventuelle)</td>
+                    </tr>
+                    <tr>
+                        <td><strong>Usage optimal</strong></td>
+                        <td>Transactions complexes, données structurées</td>
+                        <td>Données massives, flexibilité, vitesse</td>
+                    </tr>
+                    <tr>
+                        <td><strong>Exemple concret</strong></td>
+                        <td>Système bancaire</td>
+                        <td>Catalogue produits Amazon</td>
+                    </tr>
+                </tbody>
+            </table>
+        </div>
+        
+    </div>
+</body>
+</html>

@@ -1,0 +1,456 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Clés Primaires et Étrangères</title>
+    <style>
+        body {
+            font-family: 'Segoe UI', sans-serif;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            padding: 30px;
+            margin: 0;
+        }
+        
+        .container {
+            max-width: 1100px;
+            margin: 0 auto;
+        }
+        
+        h1 {
+            text-align: center;
+            color: white;
+            font-size: 2.5em;
+            margin-bottom: 40px;
+            text-shadow: 2px 2px 4px rgba(0,0,0,0.3);
+        }
+        
+        .keys-grid {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 25px;
+            margin-bottom: 30px;
+        }
+        
+        .card {
+            background: white;
+            border-radius: 15px;
+            padding: 30px;
+            box-shadow: 0 10px 30px rgba(0,0,0,0.3);
+        }
+        
+        .card h2 {
+            color: white;
+            padding: 15px;
+            margin: -30px -30px 20px -30px;
+            border-radius: 15px 15px 0 0;
+            text-align: center;
+            font-size: 1.6em;
+        }
+        
+        .primary { background: linear-gradient(135deg, #667eea 0%, #764ba2 100%); }
+        .foreign { background: linear-gradient(135deg, #f093fb 0%, #f5576c 100%); }
+        
+        .definition {
+            background: #f8f9fa;
+            padding: 15px;
+            border-radius: 8px;
+            margin-bottom: 20px;
+            border-left: 4px solid #667eea;
+            font-size: 1.05em;
+        }
+        
+        .icon-big {
+            text-align: center;
+            font-size: 4em;
+            margin: 20px 0;
+        }
+        
+        .properties {
+            background: #e3f2fd;
+            padding: 15px;
+            border-radius: 8px;
+            margin: 15px 0;
+        }
+        
+        .properties h3 {
+            color: #1565c0;
+            font-size: 1.1em;
+            margin-bottom: 10px;
+        }
+        
+        .properties ul {
+            margin: 0;
+            padding-left: 20px;
+        }
+        
+        .properties li {
+            margin: 6px 0;
+        }
+        
+        .example-box {
+            background: #fff;
+            border: 2px solid #e9ecef;
+            border-radius: 8px;
+            padding: 15px;
+            margin: 15px 0;
+        }
+        
+        .example-box h4 {
+            color: #667eea;
+            margin-bottom: 10px;
+            font-size: 1em;
+        }
+        
+        table {
+            width: 100%;
+            border-collapse: collapse;
+            font-size: 0.9em;
+            margin: 10px 0;
+        }
+        
+        th {
+            background: #667eea;
+            color: white;
+            padding: 10px;
+            text-align: left;
+        }
+        
+        td {
+            padding: 8px 10px;
+            border: 1px solid #dee2e6;
+        }
+        
+        tr:nth-child(even) {
+            background: #f8f9fa;
+        }
+        
+        .pk {
+            background: #e3f2fd !important;
+            font-weight: bold;
+            border: 2px solid #667eea !important;
+        }
+        
+        .fk {
+            background: #fce4ec !important;
+            font-weight: bold;
+            border: 2px solid #f093fb !important;
+        }
+        
+        .relationship {
+            background: white;
+            border-radius: 15px;
+            padding: 30px;
+            box-shadow: 0 10px 30px rgba(0,0,0,0.3);
+        }
+        
+        .relationship h2 {
+            color: #667eea;
+            text-align: center;
+            margin-bottom: 25px;
+        }
+        
+        .visual-relation {
+            display: flex;
+            align-items: center;
+            justify-content: space-around;
+            margin: 30px 0;
+            flex-wrap: wrap;
+            gap: 20px;
+        }
+        
+        .table-container {
+            flex: 1;
+            min-width: 300px;
+        }
+        
+        .arrow {
+            font-size: 3em;
+            color: #667eea;
+            font-weight: bold;
+        }
+        
+        .legend {
+            background: #f8f9fa;
+            padding: 15px;
+            border-radius: 8px;
+            margin-top: 20px;
+            display: flex;
+            gap: 20px;
+            justify-content: center;
+            flex-wrap: wrap;
+        }
+        
+        .legend-item {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+        
+        .color-box {
+            width: 30px;
+            height: 30px;
+            border-radius: 5px;
+            border: 2px solid #333;
+        }
+        
+        .pk-color { background: #e3f2fd; border-color: #667eea; }
+        .fk-color { background: #fce4ec; border-color: #f093fb; }
+        
+        .important-note {
+            background: #fff3cd;
+            border-left: 4px solid #ffc107;
+            padding: 15px;
+            margin: 20px 0;
+            border-radius: 5px;
+        }
+        
+        .important-note strong {
+            color: #856404;
+        }
+        
+        @media (max-width: 768px) {
+            .keys-grid {
+                grid-template-columns: 1fr;
+            }
+            
+            .visual-relation {
+                flex-direction: column;
+            }
+            
+            .arrow {
+                transform: rotate(90deg);
+            }
+            
+            h1 {
+                font-size: 1.8em;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h1>🔑 Clés Primaires et Clés Étrangères</h1>
+        
+        <div class="keys-grid">
+            <!-- CLÉ PRIMAIRE -->
+            <div class="card">
+                <h2 class="primary">🔑 Clé Primaire (Primary Key)</h2>
+                
+                <div class="icon-big">🆔</div>
+                
+                <div class="definition">
+                    <strong>Définition :</strong> Une clé primaire est un <strong>identifiant unique</strong> pour chaque ligne d'une table. Elle permet d'identifier de manière certaine et sans ambiguïté chaque enregistrement.
+                </div>
+                
+                <div class="properties">
+                    <h3>✨ Propriétés obligatoires</h3>
+                    <ul>
+                        <li><strong>Unicité</strong> : Chaque valeur doit être unique dans la table</li>
+                        <li><strong>Non nulle</strong> : Ne peut jamais être vide (NOT NULL)</li>
+                        <li><strong>Immuable</strong> : Ne doit pas changer dans le temps</li>
+                        <li><strong>Une seule par table</strong> : Une table n'a qu'une clé primaire</li>
+                    </ul>
+                </div>
+                
+                <div class="example-box">
+                    <h4>📋 Exemple : Table ÉTUDIANTS</h4>
+                    <table>
+                        <tr>
+                            <th class="pk">ID_Etudiant (PK)</th>
+                            <th>Nom</th>
+                            <th>Prénom</th>
+                            <th>Email</th>
+                        </tr>
+                        <tr>
+                            <td class="pk">1</td>
+                            <td>Dupont</td>
+                            <td>Marie</td>
+                            <td>marie.d@mail.fr</td>
+                        </tr>
+                        <tr>
+                            <td class="pk">2</td>
+                            <td>Martin</td>
+                            <td>Paul</td>
+                            <td>paul.m@mail.fr</td>
+                        </tr>
+                        <tr>
+                            <td class="pk">3</td>
+                            <td>Durand</td>
+                            <td>Sophie</td>
+                            <td>sophie.d@mail.fr</td>
+                        </tr>
+                    </table>
+                    <p style="color: #667eea; margin-top: 10px; text-align: center;">
+                        💡 <strong>ID_Etudiant</strong> identifie chaque étudiant de façon unique
+                    </p>
+                </div>
+                
+                <div class="important-note">
+                    <strong>📌 Types courants :</strong>
+                    <ul style="margin: 10px 0 0 20px;">
+                        <li>Numéro auto-incrémenté (1, 2, 3...)</li>
+                        <li>UUID/GUID (identifiant universel)</li>
+                        <li>Code métier (N° sécurité sociale, N° étudiant...)</li>
+                    </ul>
+                </div>
+            </div>
+            
+            <!-- CLÉ ÉTRANGÈRE -->
+            <div class="card">
+                <h2 class="foreign">🔗 Clé Étrangère (Foreign Key)</h2>
+                
+                <div class="icon-big">🔗</div>
+                
+                <div class="definition">
+                    <strong>Définition :</strong> Une clé étrangère est un <strong>champ qui fait référence à la clé primaire d'une autre table</strong>. Elle établit une relation entre deux tables et garantit l'intégrité référentielle.
+                </div>
+                
+                <div class="properties">
+                    <h3>✨ Propriétés principales</h3>
+                    <ul>
+                        <li><strong>Référence</strong> : Pointe vers une clé primaire d'une autre table</li>
+                        <li><strong>Peut être nulle</strong> : Sauf si définie comme NOT NULL</li>
+                        <li><strong>Peut se répéter</strong> : Plusieurs lignes peuvent avoir la même FK</li>
+                        <li><strong>Intégrité référentielle</strong> : Empêche les valeurs orphelines</li>
+                    </ul>
+                </div>
+                
+                <div class="example-box">
+                    <h4>📋 Exemple : Table INSCRIPTIONS</h4>
+                    <table>
+                        <tr>
+                            <th class="pk">ID_Inscription (PK)</th>
+                            <th class="fk">ID_Etudiant (FK)</th>
+                            <th>Cours</th>
+                            <th>Date</th>
+                        </tr>
+                        <tr>
+                            <td class="pk">101</td>
+                            <td class="fk">1</td>
+                            <td>Mathématiques</td>
+                            <td>2025-09-15</td>
+                        </tr>
+                        <tr>
+                            <td class="pk">102</td>
+                            <td class="fk">1</td>
+                            <td>Physique</td>
+                            <td>2025-09-15</td>
+                        </tr>
+                        <tr>
+                            <td class="pk">103</td>
+                            <td class="fk">2</td>
+                            <td>Informatique</td>
+                            <td>2025-09-16</td>
+                        </tr>
+                    </table>
+                    <p style="color: #f5576c; margin-top: 10px; text-align: center;">
+                        💡 <strong>ID_Etudiant</strong> référence la table ÉTUDIANTS
+                    </p>
+                </div>
+                
+                <div class="important-note">
+                    <strong>📌 Règles d'intégrité :</strong>
+                    <ul style="margin: 10px 0 0 20px;">
+                        <li><strong>ON DELETE CASCADE</strong> : Supprime les lignes liées</li>
+                        <li><strong>ON DELETE SET NULL</strong> : Met la FK à NULL</li>
+                        <li><strong>ON DELETE RESTRICT</strong> : Empêche la suppression</li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+        
+        <!-- RELATION VISUELLE -->
+        <div class="relationship">
+            <h2>🔄 Relation entre Tables : Exemple Complet</h2>
+            
+            <div class="visual-relation">
+                <div class="table-container">
+                    <h3 style="text-align: center; color: #667eea;">Table : ÉTUDIANTS</h3>
+                    <table>
+                        <tr>
+                            <th class="pk">ID_Etudiant (PK) 🔑</th>
+                            <th>Nom</th>
+                            <th>Prénom</th>
+                        </tr>
+                        <tr>
+                            <td class="pk">1</td>
+                            <td>Dupont</td>
+                            <td>Marie</td>
+                        </tr>
+                        <tr>
+                            <td class="pk">2</td>
+                            <td>Martin</td>
+                            <td>Paul</td>
+                        </tr>
+                        <tr>
+                            <td class="pk">3</td>
+                            <td>Durand</td>
+                            <td>Sophie</td>
+                        </tr>
+                    </table>
+                </div>
+                
+                <div class="arrow">→</div>
+                
+                <div class="table-container">
+                    <h3 style="text-align: center; color: #f5576c;">Table : INSCRIPTIONS</h3>
+                    <table>
+                        <tr>
+                            <th class="pk">ID_Inscription (PK) 🔑</th>
+                            <th class="fk">ID_Etudiant (FK) 🔗</th>
+                            <th>Cours</th>
+                        </tr>
+                        <tr>
+                            <td class="pk">101</td>
+                            <td class="fk">1</td>
+                            <td>Maths</td>
+                        </tr>
+                        <tr>
+                            <td class="pk">102</td>
+                            <td class="fk">1</td>
+                            <td>Physique</td>
+                        </tr>
+                        <tr>
+                            <td class="pk">103</td>
+                            <td class="fk">2</td>
+                            <td>Info</td>
+                        </tr>
+                        <tr>
+                            <td class="pk">104</td>
+                            <td class="fk">3</td>
+                            <td>Chimie</td>
+                        </tr>
+                    </table>
+                </div>
+            </div>
+            
+            <div class="legend">
+                <div class="legend-item">
+                    <div class="color-box pk-color"></div>
+                    <span><strong>Clé Primaire (PK)</strong> : Identifiant unique</span>
+                </div>
+                <div class="legend-item">
+                    <div class="color-box fk-color"></div>
+                    <span><strong>Clé Étrangère (FK)</strong> : Référence à une autre table</span>
+                </div>
+            </div>
+            
+            <div style="background: #e8f5e9; padding: 20px; border-radius: 8px; margin-top: 25px; border-left: 4px solid #4caf50;">
+                <h3 style="color: #2e7d32; margin-bottom: 15px;">💡 Explication de la relation</h3>
+                <p style="margin: 8px 0;"><strong>1.</strong> Chaque étudiant a un <span style="color: #667eea; font-weight: bold;">ID_Etudiant unique</span> (clé primaire)</p>
+                <p style="margin: 8px 0;"><strong>2.</strong> Chaque inscription référence un étudiant via <span style="color: #f5576c; font-weight: bold;">ID_Etudiant</span> (clé étrangère)</p>
+                <p style="margin: 8px 0;"><strong>3.</strong> Un étudiant peut avoir <strong>plusieurs inscriptions</strong> (relation 1 vers N)</p>
+                <p style="margin: 8px 0;"><strong>4.</strong> Une inscription appartient à <strong>un seul étudiant</strong></p>
+                <p style="margin: 8px 0; color: #2e7d32;"><strong>Résultat :</strong> Marie Dupont (ID=1) est inscrite en Maths ET en Physique</p>
+            </div>
+            
+            <div style="background: #fff3cd; padding: 15px; border-radius: 8px; margin-top: 20px; border-left: 4px solid #ffc107;">
+                <strong style="color: #856404;">⚠️ Intégrité référentielle :</strong>
+                <p style="margin: 10px 0 0 0;">On ne peut pas insérer une inscription avec ID_Etudiant = 999 si cet étudiant n'existe pas dans la table ÉTUDIANTS. La base de données rejettera cette opération pour maintenir la cohérence des données.</p>
+            </div>
+        </div>
+        
+    </div>
+</body>
+</html>

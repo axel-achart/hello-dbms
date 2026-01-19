@@ -9,15 +9,42 @@
 </head>
 
 <body>
-    <h1>Résultat du Calcul pour {{ country }}</h1>
+    <div class="page">
+        <div class="header">
+            <div>
+                <div class="eyebrow"><span class="badge-dot"></span>Estimation annuelle</div>
+                <h1 class="title">Résultat pour {{ country }}</h1>
+                <p class="lead">Projection d'émissions et effort de compensation.</p>
+            </div>
+            <div class="actions">
+                <a class="button-link button-secondary" href="/country?country={{ country }}">Retour aux détails</a>
+                <a class="button-link" href="/">Nouveau calcul</a>
+            </div>
+        </div>
 
-    <p>Consommation: {{ kw }} kW</p>
-    <p>Émissions annuelles de CO2: {{ "%.2f"|format(annual_co2) }} kg</p>
-    <p>Nombre d'arbres nécessaires afin d’absorber le CO2 engendré par le pays: {{ "%.0f"|format(trees) }} arbres</p>
-
-    <a href="/country?country={{ country }}">Retour aux détails</a>
-    </br>
-    <a href="/">Accueil</a>
+        <section class="panel grid grid-2">
+            <div class="stat">
+                <div class="stat-label">Consommation continue</div>
+                <div class="stat-value">{{ kw }} kW</div>
+            </div>
+            <div class="stat">
+                <div class="stat-label">Émissions annuelles</div>
+                <div class="stat-value">{{ "%.2f"|format(annual_co2) }} kg CO2</div>
+            </div>
+            <div class="stat">
+                <div class="stat-label">Arbres nécessaires</div>
+                <div class="stat-value">{{ "%.0f"|format(trees) }} arbres</div>
+                <div class="muted">Hypothèse : 25 kg CO2 absorbés par arbre/an.</div>
+            </div>
+            <div class="stat">
+                <div class="stat-label">Suivi</div>
+                <div class="muted">Gardez cette estimation pour comparer d'autres pays ou scénarios.</div>
+                <div class="actions">
+                    <a class="button-link button-secondary" href="/country?country={{ country }}">Modifier la consommation</a>
+                </div>
+            </div>
+        </section>
+    </div>
 </body>
 
 </html>

@@ -1,0 +1,913 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Systèmes de Gestion de Bases de Données (SGBD)</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+        
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            background: linear-gradient(135deg, #1e3c72 0%, #2a5298 50%, #7e22ce 100%);
+            padding: 20px;
+            color: #333;
+            line-height: 1.6;
+        }
+        
+        .container {
+            max-width: 1400px;
+            margin: 0 auto;
+        }
+        
+        h1 {
+            text-align: center;
+            color: white;
+            font-size: 2.8em;
+            margin-bottom: 20px;
+            text-shadow: 3px 3px 6px rgba(0,0,0,0.4);
+        }
+        
+        .intro {
+            background: white;
+            padding: 30px;
+            border-radius: 15px;
+            margin-bottom: 30px;
+            box-shadow: 0 10px 30px rgba(0,0,0,0.3);
+        }
+        
+        .intro h2 {
+            color: #1e3c72;
+            margin-bottom: 15px;
+        }
+        
+        .intro p {
+            margin-bottom: 10px;
+            font-size: 1.05em;
+        }
+        
+        .functions {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 15px;
+            margin-top: 20px;
+        }
+        
+        .function-box {
+            background: #f0f4ff;
+            padding: 15px;
+            border-radius: 10px;
+            border-left: 4px solid #1e3c72;
+        }
+        
+        .function-box h3 {
+            color: #1e3c72;
+            font-size: 1.1em;
+            margin-bottom: 8px;
+        }
+        
+        .sgbd-types {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(450px, 1fr));
+            gap: 25px;
+            margin-top: 30px;
+        }
+        
+        .sgbd-card {
+            background: white;
+            border-radius: 15px;
+            padding: 30px;
+            box-shadow: 0 10px 30px rgba(0,0,0,0.3);
+            transition: transform 0.3s ease, box-shadow 0.3s ease;
+        }
+        
+        .sgbd-card:hover {
+            transform: translateY(-8px);
+            box-shadow: 0 15px 40px rgba(0,0,0,0.4);
+        }
+        
+        .sgbd-card h2 {
+            color: white;
+            padding: 15px;
+            border-radius: 10px;
+            margin: -30px -30px 20px -30px;
+            font-size: 1.8em;
+            text-align: center;
+        }
+        
+        .relational { background: linear-gradient(135deg, #667eea 0%, #764ba2 100%); }
+        .nosql { background: linear-gradient(135deg, #f093fb 0%, #f5576c 100%); }
+        .newsql { background: linear-gradient(135deg, #4facfe 0%, #00f2fe 100%); }
+        .timeseries { background: linear-gradient(135deg, #43e97b 0%, #38f9d7 100%); }
+        .graph { background: linear-gradient(135deg, #fa709a 0%, #fee140 100%); }
+        .columnar { background: linear-gradient(135deg, #30cfd0 0%, #330867 100%); }
+        
+        .description {
+            background: #f8f9fa;
+            padding: 15px;
+            border-radius: 8px;
+            margin-bottom: 20px;
+            border-left: 4px solid #667eea;
+        }
+        
+        .visual-model {
+            background: #fff;
+            border: 2px solid #e9ecef;
+            border-radius: 10px;
+            padding: 20px;
+            margin: 20px 0;
+            font-family: 'Courier New', monospace;
+            font-size: 0.9em;
+        }
+        
+        .visual-model h4 {
+            color: #667eea;
+            margin-bottom: 10px;
+            font-family: 'Segoe UI', sans-serif;
+        }
+        
+        .table-example {
+            width: 100%;
+            border-collapse: collapse;
+            margin: 10px 0;
+            background: white;
+        }
+        
+        .table-example th {
+            background: #667eea;
+            color: white;
+            padding: 10px;
+            text-align: left;
+            font-size: 0.85em;
+        }
+        
+        .table-example td {
+            padding: 8px 10px;
+            border: 1px solid #dee2e6;
+            font-size: 0.85em;
+        }
+        
+        .table-example tr:nth-child(even) {
+            background: #f8f9fa;
+        }
+        
+        .json-example {
+            background: #282c34;
+            color: #abb2bf;
+            padding: 15px;
+            border-radius: 8px;
+            overflow-x: auto;
+            font-size: 0.85em;
+        }
+        
+        .json-key { color: #e06c75; }
+        .json-string { color: #98c379; }
+        .json-number { color: #d19a66; }
+        
+        .examples-list {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(180px, 1fr));
+            gap: 12px;
+            margin: 15px 0;
+        }
+        
+        .example-item {
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            color: white;
+            padding: 15px;
+            border-radius: 10px;
+            text-align: center;
+            font-weight: 600;
+            box-shadow: 0 4px 10px rgba(0,0,0,0.2);
+            transition: transform 0.2s ease;
+        }
+        
+        .example-item:hover {
+            transform: scale(1.05);
+        }
+        
+        .logo {
+            font-size: 2em;
+            margin-bottom: 8px;
+        }
+        
+        .features {
+            margin-top: 15px;
+        }
+        
+        .features h3 {
+            color: #333;
+            font-size: 1.2em;
+            margin-bottom: 10px;
+        }
+        
+        .features ul {
+            list-style: none;
+            padding: 0;
+        }
+        
+        .features li {
+            padding: 8px 0;
+            padding-left: 25px;
+            position: relative;
+        }
+        
+        .features li:before {
+            content: "✓";
+            position: absolute;
+            left: 0;
+            color: #4caf50;
+            font-weight: bold;
+            font-size: 1.2em;
+        }
+        
+        .use-cases {
+            background: #e3f2fd;
+            padding: 15px;
+            border-radius: 8px;
+            margin-top: 15px;
+        }
+        
+        .use-cases h3 {
+            color: #1565c0;
+            margin-bottom: 10px;
+        }
+        
+        .use-cases ul {
+            margin-left: 20px;
+        }
+        
+        .use-cases li {
+            margin-bottom: 5px;
+        }
+        
+        .comparison-section {
+            background: white;
+            padding: 30px;
+            border-radius: 15px;
+            margin-top: 30px;
+            box-shadow: 0 10px 30px rgba(0,0,0,0.3);
+        }
+        
+        .comparison-section h2 {
+            color: #1e3c72;
+            margin-bottom: 20px;
+            text-align: center;
+        }
+        
+        .comparison-table {
+            width: 100%;
+            border-collapse: collapse;
+            margin-top: 20px;
+            overflow-x: auto;
+            display: block;
+        }
+        
+        .comparison-table table {
+            width: 100%;
+        }
+        
+        .comparison-table th {
+            background: #1e3c72;
+            color: white;
+            padding: 15px 10px;
+            text-align: left;
+            font-weight: 600;
+            position: sticky;
+            top: 0;
+        }
+        
+        .comparison-table td {
+            padding: 12px 10px;
+            border-bottom: 1px solid #e9ecef;
+        }
+        
+        .comparison-table tr:hover {
+            background: #f8f9fa;
+        }
+        
+        @media (max-width: 768px) {
+            .sgbd-types {
+                grid-template-columns: 1fr;
+            }
+            
+            .functions {
+                grid-template-columns: 1fr;
+            }
+            
+            h1 {
+                font-size: 2em;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h1>🗄️ Systèmes de Gestion de Bases de Données (SGBD)</h1>
+        
+        <!-- INTRODUCTION -->
+        <div class="intro">
+            <h2>📚 Qu'est-ce qu'un SGBD ?</h2>
+            <p>Un <strong>Système de Gestion de Bases de Données (SGBD)</strong> est un logiciel qui permet de créer, organiser, gérer, manipuler et sécuriser des bases de données. Il sert d'interface entre les utilisateurs (ou applications) et les données stockées physiquement.</p>
+            
+            <div class="functions">
+                <div class="function-box">
+                    <h3>💾 Stockage</h3>
+                    <p>Organisation efficace des données sur disque</p>
+                </div>
+                <div class="function-box">
+                    <h3>🔍 Interrogation</h3>
+                    <p>Requêtes SQL ou autres langages</p>
+                </div>
+                <div class="function-box">
+                    <h3>🔒 Sécurité</h3>
+                    <p>Gestion des droits et authentification</p>
+                </div>
+                <div class="function-box">
+                    <h3>✅ Intégrité</h3>
+                    <p>Garantie de cohérence des données</p>
+                </div>
+                <div class="function-box">
+                    <h3>👥 Concurrence</h3>
+                    <p>Gestion des accès simultanés</p>
+                </div>
+                <div class="function-box">
+                    <h3>🔄 Sauvegarde</h3>
+                    <p>Protection et récupération des données</p>
+                </div>
+            </div>
+        </div>
+        
+        <!-- TYPES DE SGBD -->
+        <div class="sgbd-types">
+            
+            <!-- SGBD RELATIONNELS -->
+            <div class="sgbd-card">
+                <h2 class="relational">📊 SGBD Relationnels (RDBMS)</h2>
+                
+                <div class="description">
+                    <strong>Principe :</strong> Organisent les données dans des tables (relations) composées de lignes (tuples) et de colonnes (attributs). Les tables sont liées entre elles par des clés étrangères.
+                </div>
+                
+                <div class="visual-model">
+                    <h4>Modèle visuel : Tables reliées</h4>
+                    <table class="table-example">
+                        <caption><strong>Table : Clients</strong></caption>
+                        <tr>
+                            <th>ID_Client</th>
+                            <th>Nom</th>
+                            <th>Email</th>
+                            <th>Ville</th>
+                        </tr>
+                        <tr>
+                            <td>1</td>
+                            <td>Dupont</td>
+                            <td>dupont@email.fr</td>
+                            <td>Paris</td>
+                        </tr>
+                        <tr>
+                            <td>2</td>
+                            <td>Martin</td>
+                            <td>martin@email.fr</td>
+                            <td>Lyon</td>
+                        </tr>
+                    </table>
+                    
+                    <table class="table-example" style="margin-top: 15px;">
+                        <caption><strong>Table : Commandes</strong></caption>
+                        <tr>
+                            <th>ID_Commande</th>
+                            <th>ID_Client</th>
+                            <th>Date</th>
+                            <th>Montant</th>
+                        </tr>
+                        <tr>
+                            <td>101</td>
+                            <td>1</td>
+                            <td>2025-11-10</td>
+                            <td>150.00 €</td>
+                        </tr>
+                        <tr>
+                            <td>102</td>
+                            <td>2</td>
+                            <td>2025-11-12</td>
+                            <td>200.00 €</td>
+                        </tr>
+                    </table>
+                    
+                    <p style="margin-top: 10px; color: #667eea;">↔️ <em>Relation : ID_Client (clé étrangère)</em></p>
+                </div>
+                
+                <h3 style="color: #667eea; margin: 20px 0 15px 0;">Exemples de SGBD Relationnels :</h3>
+                <div class="examples-list">
+                    <div class="example-item">
+                        <div class="logo">🐬</div>
+                        MySQL
+                    </div>
+                    <div class="example-item">
+                        <div class="logo">🐘</div>
+                        PostgreSQL
+                    </div>
+                    <div class="example-item">
+                        <div class="logo">🔷</div>
+                        Oracle DB
+                    </div>
+                    <div class="example-item">
+                        <div class="logo">🗄️</div>
+                        Microsoft SQL Server
+                    </div>
+                    <div class="example-item">
+                        <div class="logo">💾</div>
+                        SQLite
+                    </div>
+                    <div class="example-item">
+                        <div class="logo">🔶</div>
+                        MariaDB
+                    </div>
+                </div>
+                
+                <div class="features">
+                    <h3>✨ Caractéristiques principales :</h3>
+                    <ul>
+                        <li>Langage SQL standardisé</li>
+                        <li>Propriétés ACID (Atomicité, Cohérence, Isolation, Durabilité)</li>
+                        <li>Schéma rigide et prédéfini</li>
+                        <li>Relations entre tables via clés</li>
+                        <li>Transactions fiables</li>
+                    </ul>
+                </div>
+                
+                <div class="use-cases">
+                    <h3>💼 Cas d'usage :</h3>
+                    <ul>
+                        <li>Applications d'entreprise (ERP, CRM)</li>
+                        <li>Systèmes bancaires et financiers</li>
+                        <li>E-commerce et gestion de stocks</li>
+                        <li>Systèmes de réservation</li>
+                    </ul>
+                </div>
+            </div>
+            
+            <!-- SGBD NoSQL -->
+            <div class="sgbd-card">
+                <h2 class="nosql">🌐 SGBD NoSQL</h2>
+                
+                <div class="description">
+                    <strong>Principe :</strong> "Not Only SQL" - Systèmes flexibles qui ne suivent pas le modèle relationnel classique. Ils privilégient la scalabilité horizontale et la flexibilité du schéma.
+                </div>
+                
+                <div class="visual-model">
+                    <h4>Modèle visuel : Document JSON (exemple MongoDB)</h4>
+                    <div class="json-example">
+<pre>{
+  <span class="json-key">"_id"</span>: <span class="json-string">"507f1f77bcf86cd799439011"</span>,
+  <span class="json-key">"nom"</span>: <span class="json-string">"Dupont"</span>,
+  <span class="json-key">"prenom"</span>: <span class="json-string">"Jean"</span>,
+  <span class="json-key">"age"</span>: <span class="json-number">35</span>,
+  <span class="json-key">"adresses"</span>: [
+    {
+      <span class="json-key">"type"</span>: <span class="json-string">"domicile"</span>,
+      <span class="json-key">"ville"</span>: <span class="json-string">"Paris"</span>,
+      <span class="json-key">"code_postal"</span>: <span class="json-string">"75001"</span>
+    },
+    {
+      <span class="json-key">"type"</span>: <span class="json-string">"bureau"</span>,
+      <span class="json-key">"ville"</span>: <span class="json-string">"Lyon"</span>
+    }
+  ],
+  <span class="json-key">"commandes"</span>: [
+    { <span class="json-key">"id"</span>: <span class="json-number">101</span>, <span class="json-key">"montant"</span>: <span class="json-number">150.00</span> },
+    { <span class="json-key">"id"</span>: <span class="json-number">102</span>, <span class="json-key">"montant"</span>: <span class="json-number">200.00</span> }
+  ]
+}</pre>
+                    </div>
+                </div>
+                
+                <h3 style="color: #f5576c; margin: 20px 0 15px 0;">Sous-catégories de NoSQL :</h3>
+                
+                <div style="background: #fff5f7; padding: 15px; border-radius: 8px; margin-bottom: 15px;">
+                    <h4 style="color: #f5576c;">📄 Document (Document Store)</h4>
+                    <p><strong>Exemples :</strong> MongoDB, CouchDB, Couchbase</p>
+                    <p>Stocke les données sous forme de documents (JSON, BSON, XML)</p>
+                </div>
+                
+                <div style="background: #fff5f7; padding: 15px; border-radius: 8px; margin-bottom: 15px;">
+                    <h4 style="color: #f5576c;">🔑 Clé-Valeur (Key-Value Store)</h4>
+                    <p><strong>Exemples :</strong> Redis, Amazon DynamoDB, Memcached</p>
+                    <p>Stocke des paires clé-valeur simples, ultra rapide</p>
+                </div>
+                
+                <div style="background: #fff5f7; padding: 15px; border-radius: 8px; margin-bottom: 15px;">
+                    <h4 style="color: #f5576c;">📊 Colonnes (Column-Family Store)</h4>
+                    <p><strong>Exemples :</strong> Apache Cassandra, HBase, ScyllaDB</p>
+                    <p>Optimisé pour les lectures/écritures massives</p>
+                </div>
+                
+                <div style="background: #fff5f7; padding: 15px; border-radius: 8px;">
+                    <h4 style="color: #f5576c;">🕸️ Graphes (Graph Database)</h4>
+                    <p><strong>Exemples :</strong> Neo4j, ArangoDB, OrientDB</p>
+                    <p>Spécialisé dans les relations complexes entre entités</p>
+                </div>
+                
+                <div class="features">
+                    <h3>✨ Caractéristiques principales :</h3>
+                    <ul>
+                        <li>Schéma flexible (schema-less)</li>
+                        <li>Scalabilité horizontale excellente</li>
+                        <li>Haute performance pour certains cas d'usage</li>
+                        <li>Propriétés BASE (au lieu d'ACID)</li>
+                        <li>Distribution géographique facile</li>
+                    </ul>
+                </div>
+                
+                <div class="use-cases">
+                    <h3>💼 Cas d'usage :</h3>
+                    <ul>
+                        <li>Réseaux sociaux (graphes de relations)</li>
+                        <li>Applications temps réel (cache, sessions)</li>
+                        <li>Big Data et analytics</li>
+                        <li>IoT et logs massifs</li>
+                        <li>Catalogues produits e-commerce</li>
+                    </ul>
+                </div>
+            </div>
+            
+            <!-- SGBD NewSQL -->
+            <div class="sgbd-card">
+                <h2 class="newsql">⚡ SGBD NewSQL</h2>
+                
+                <div class="description">
+                    <strong>Principe :</strong> Combine les garanties ACID des SGBD relationnels avec la scalabilité horizontale des systèmes NoSQL. Le meilleur des deux mondes.
+                </div>
+                
+                <h3 style="color: #00f2fe; margin: 20px 0 15px 0;">Exemples de SGBD NewSQL :</h3>
+                <div class="examples-list">
+                    <div class="example-item" style="background: linear-gradient(135deg, #4facfe 0%, #00f2fe 100%);">
+                        <div class="logo">🌍</div>
+                        Google Spanner
+                    </div>
+                    <div class="example-item" style="background: linear-gradient(135deg, #4facfe 0%, #00f2fe 100%);">
+                        <div class="logo">🟦</div>
+                        CockroachDB
+                    </div>
+                    <div class="example-item" style="background: linear-gradient(135deg, #4facfe 0%, #00f2fe 100%);">
+                        <div class="logo">⚡</div>
+                        VoltDB
+                    </div>
+                    <div class="example-item" style="background: linear-gradient(135deg, #4facfe 0%, #00f2fe 100%);">
+                        <div class="logo">🔵</div>
+                        NuoDB
+                    </div>
+                </div>
+                
+                <div class="features">
+                    <h3>✨ Caractéristiques principales :</h3>
+                    <ul>
+                        <li>Transactions ACID complètes</li>
+                        <li>Scalabilité horizontale automatique</li>
+                        <li>Support SQL standard</li>
+                        <li>Distribution géographique globale</li>
+                        <li>Haute disponibilité</li>
+                    </ul>
+                </div>
+                
+                <div class="use-cases">
+                    <h3>💼 Cas d'usage :</h3>
+                    <ul>
+                        <li>Applications globales multi-régions</li>
+                        <li>Services financiers à grande échelle</li>
+                        <li>Applications nécessitant ACID + scale</li>
+                        <li>Systèmes critiques haute disponibilité</li>
+                    </ul>
+                </div>
+            </div>
+            
+            <!-- SGBD Séries Temporelles -->
+            <div class="sgbd-card">
+                <h2 class="timeseries">📈 SGBD Séries Temporelles</h2>
+                
+                <div class="description">
+                    <strong>Principe :</strong> Optimisés pour stocker et analyser des données horodatées, avec des fonctions spécialisées pour les agrégations temporelles et les analyses de tendances.
+                </div>
+                
+                <div class="visual-model">
+                    <h4>Modèle visuel : Données temporelles</h4>
+                    <table class="table-example">
+                        <tr>
+                            <th>Timestamp</th>
+                            <th>Capteur_ID</th>
+                            <th>Température</th>
+                            <th>Humidité</th>
+                        </tr>
+                        <tr>
+                            <td>2025-11-15 10:00:00</td>
+                            <td>SENSOR_01</td>
+                            <td>22.5°C</td>
+                            <td>65%</td>
+                        </tr>
+                        <tr>
+                            <td>2025-11-15 10:01:00</td>
+                            <td>SENSOR_01</td>
+                            <td>22.7°C</td>
+                            <td>64%</td>
+                        </tr>
+                        <tr>
+                            <td>2025-11-15 10:02:00</td>
+                            <td>SENSOR_01</td>
+                            <td>23.0°C</td>
+                            <td>63%</td>
+                        </tr>
+                    </table>
+                </div>
+                
+                <h3 style="color: #38f9d7; margin: 20px 0 15px 0;">Exemples de SGBD Temporels :</h3>
+                <div class="examples-list">
+                    <div class="example-item" style="background: linear-gradient(135deg, #43e97b 0%, #38f9d7 100%);">
+                        <div class="logo">⏱️</div>
+                        InfluxDB
+                    </div>
+                    <div class="example-item" style="background: linear-gradient(135deg, #43e97b 0%, #38f9d7 100%);">
+                        <div class="logo">📊</div>
+                        TimescaleDB
+                    </div>
+                    <div class="example-item" style="background: linear-gradient(135deg, #43e97b 0%, #38f9d7 100%);">
+                        <div class="logo">🔷</div>
+                        Prometheus
+                    </div>
+                    <div class="example-item" style="background: linear-gradient(135deg, #43e97b 0%, #38f9d7 100%);">
+                        <div class="logo">📈</div>
+                        OpenTSDB
+                    </div>
+                </div>
+                
+                <div class="features">
+                    <h3>✨ Caractéristiques principales :</h3>
+                    <ul>
+                        <li>Compression optimisée pour données temporelles</li>
+                        <li>Fonctions d'agrégation temporelle natives</li>
+                        <li>Rétention automatique des données</li>
+                        <li>Indexation temporelle ultra-rapide</li>
+                        <li>Support des downsampling automatique</li>
+                    </ul>
+                </div>
+                
+                <div class="use-cases">
+                    <h3>💼 Cas d'usage :</h3>
+                    <ul>
+                        <li>Monitoring d'infrastructure IT</li>
+                        <li>IoT et capteurs industriels</li>
+                        <li>Données financières (trading)</li>
+                        <li>Métriques d'applications</li>
+                        <li>Smart cities et environnement</li>
+                    </ul>
+                </div>
+            </div>
+            
+            <!-- SGBD Graphes -->
+            <div class="sgbd-card">
+                <h2 class="graph">🕸️ SGBD Orientés Graphes</h2>
+                
+                <div class="description">
+                    <strong>Principe :</strong> Stockent les données sous forme de nœuds (entités) et d'arêtes (relations). Optimisés pour parcourir et analyser des réseaux de relations complexes.
+                </div>
+                
+                <div class="visual-model">
+                    <h4>Modèle visuel : Graphe de relations</h4>
+                    <div style="text-align: center; padding: 20px; background: #f8f9fa; border-radius: 8px;">
+                        <div style="font-size: 3em; line-height: 0.8;">
+                            👤 ──❤️── 👤
+                            <br>
+                            &nbsp;│&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;│
+                            <br>
+                            👔&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;👔
+                            <br>
+                            &nbsp;│&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;│
+                            <br>
+                            🏢&nbsp;───&nbsp;🏢
+                        </div>
+                        <p style="margin-top: 15px; color: #666;">
+                            <strong>Exemple :</strong> Personnes reliées par des relations (ami, collègue), 
+                            travaillant dans des entreprises
+                        </p>
+                    </div>
+                    
+                    <div class="json-example" style="margin-top: 15px;">
+<pre>// Requête Cypher (Neo4j)
+MATCH (p1:Personne)-[r:AMI_DE]-(p2:Personne)
+      -[:TRAVAILLE_A]->(e:Entreprise)
+WHERE p1.nom = 'Dupont'
+RETURN p2.nom, e.nom</pre>
+                    </div>
+                </div>
+                
+                <h3 style="color: #fee140; margin: 20px 0 15px 0;">Exemples de SGBD Graphes :</h3>
+                <div class="examples-list">
+                    <div class="example-item" style="background: linear-gradient(135deg, #fa709a 0%, #fee140 100%);">
+                        <div class="logo">🔴</div>
+                        Neo4j
+                    </div>
+                    <div class="example-item" style="background: linear-gradient(135deg, #fa709a 0%, #fee140 100%);">
+                        <div class="logo">🟠</div>
+                        ArangoDB
+                    </div>
+                    <div class="example-item" style="background: linear-gradient(135deg, #fa709a 0%, #fee140 100%);">
+                        <div class="logo">🔶</div>
+                        OrientDB
+                    </div>
+                    <div class="example-item" style="background: linear-gradient(135deg, #fa709a 0%, #fee140 100%);">
+                        <div class="logo">🌐</div>
+                        Amazon Neptune
+                    </div>
+                </div>
+                
+                <div class="features">
+                    <h3>✨ Caractéristiques principales :</h3>
+                    <ul>
+                        <li>Parcours de graphe ultra-performant</li>
+                        <li>Relations multiples entre entités</li>
+                        <li>Langage de requête graphe (Cypher, Gremlin)</li>
+                        <li>Algorithmes de graphe intégrés</li>
+                        <li>Visualisation native des relations</li>
+                    </ul>
+                </div>
+                
+                <div class="use-cases">
+                    <h3>💼 Cas d'usage :</h3>
+                    <ul>
+                        <li>Réseaux sociaux (recommandations d'amis)</li>
+                        <li>Détection de fraude (analyse de patterns)</li>
+                        <li>Moteurs de recommandation</li>
+                        <li>Gestion de connaissances (knowledge graphs)</li>
+                        <li>Analyse de réseaux (télécoms, supply chain)</li>
+                    </ul>
+                </div>
+            </div>
+            
+            <!-- SGBD Colonnaires -->
+            <div class="sgbd-card">
+                <h2 class="columnar">📊 SGBD Colonnaires</h2>
+                
+                <div class="description">
+                    <strong>Principe :</strong> Stockent les données par colonnes plutôt que par lignes, optimisant ainsi les requêtes analytiques qui agrègent des colonnes entières (ex: SUM, AVG).
+                </div>
+                
+                <div class="visual-model">
+                    <h4>Stockage ligne vs colonne</h4>
+                    <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 15px;">
+                        <div>
+                            <strong style="color: #666;">Stockage par ligne (RDBMS classique)</strong>
+                            <div style="background: #fff3cd; padding: 10px; margin-top: 8px; border-radius: 5px; font-size: 0.8em;">
+                                Row1: [ID:1, Nom:Dupont, Age:35, Ville:Paris]<br>
+                                Row2: [ID:2, Nom:Martin, Age:28, Ville:Lyon]<br>
+                                Row3: [ID:3, Nom:Durand, Age:42, Ville:Nice]
+                            </div>
+                        </div>
+                        <div>
+                            <strong style="color: #666;">Stockage par colonne</strong>
+                            <div style="background: #d1ecf1; padding: 10px; margin-top: 8px; border-radius: 5px; font-size: 0.8em;">
+                                ID: [1, 2, 3]<br>
+                                Nom: [Dupont, Martin, Durand]<br>
+                                Age: [35, 28, 42]<br>
+                                Ville: [Paris, Lyon, Nice]
+                            </div>
+                        </div>
+                    </div>
+                    <p style="margin-top: 10px; color: #30cfd0; font-weight: bold;">
+                        ✨ Avantage : Pour "SELECT AVG(Age)", seule la colonne Age est lue !
+                    </p>
+                </div>
+                
+                <h3 style="color: #30cfd0; margin: 20px 0 15px 0;">Exemples de SGBD Colonnaires :</h3>
+                <div class="examples-list">
+                    <div class="example-item" style="background: linear-gradient(135deg, #30cfd0 0%, #330867 100%);">
+                        <div class="logo">❄️</div>
+                        Snowflake
+                    </div>
+                    <div class="example-item" style="background: linear-gradient(135deg, #30cfd0 0%, #330867 100%);">
+                        <div class="logo">🔷</div>
+                        Amazon Redshift
+                    </div>
+                    <div class="example-item" style="background: linear-gradient(135deg, #30cfd0 0%, #330867 100%);">
+                        <div class="logo">🔶</div>
+                        Apache Druid
+                    </div>
+                    <div class="example-item" style="background: linear-gradient(135deg, #30cfd0 0%, #330867 100%);">
+                        <div class="logo">⚡</div>
+                        ClickHouse
+                    </div>
+                    <div class="example-item" style="background: linear-gradient(135deg, #30cfd0 0%, #330867 100%);">
+                        <div class="logo">📊</div>
+                        Google BigQuery
+                    </div>
+                </div>
+                
+                <div class="features">
+                    <h3>✨ Caractéristiques principales :</h3>
+                    <ul>
+                        <li>Performance exceptionnelle pour l'analytique</li>
+                        <li>Compression optimale des données</li>
+                        <li>Agrégations massives ultra-rapides</li>
+                        <li>Moins performant pour les écritures fréquentes</li>
+                        <li>Idéal pour le OLAP (Online Analytical Processing)</li>
+                    </ul>
+                </div>
+                
+                <div class="use-cases">
+                    <h3>💼 Cas d'usage :</h3>
+                    <ul>
+                        <li>Data warehouses et analytics</li>
+                        <li>Business Intelligence à grande échelle</li>
+                        <li>Rapports et tableaux de bord</li>
+                        <li>Analyse de logs massifs</li>
+                        <li>Requêtes complexes sur big data</li>
+                    </ul>
+                </div>
+            </div>
+            
+        </div>
+        
+        <!-- TABLEAU COMPARATIF -->
+        <div class="comparison-section">
+            <h2>📋 Tableau Comparatif des Types de SGBD</h2>
+            
+            <div class="comparison-table">
+                <table>
+                    <thead>
+                        <tr>
+                            <th>Type de SGBD</th>
+                            <th>Structure</th>
+                            <th>Langage</th>
+                            <th>Scalabilité</th>
+                            <th>Performance</th>
+                            <th>Meilleur pour</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr>
+                            <td><strong>Relationnel</strong></td>
+                            <td>Tables, lignes, colonnes</td>
+                            <td>SQL</td>
+                            <td>Verticale ⬆️</td>
+                            <td>Excellente (OLTP)</td>
+                            <td>Données structurées, transactions</td>
+                        </tr>
+                        <tr>
+                            <td><strong>NoSQL Document</strong></td>
+                            <td>Documents JSON/BSON</td>
+                            <td>Propriétaire</td>
+                            <td>Horizontale ↔️</td>
+                            <td>Très bonne</td>
+                            <td>Données semi-structurées, flexibilité</td>
+                        </tr>
+                        <tr>
+                            <td><strong>NoSQL Clé-Valeur</strong></td>
+                            <td>Paires clé-valeur</td>
+                            <td>API simple</td>
+                            <td>Horizontale ↔️</td>
+                            <td>Ultra rapide</td>
+                            <td>Cache, sessions, données simples</td>
+                        </tr>
+                        <tr>
+                            <td><strong>Graphe</strong></td>
+                            <td>Nœuds et arêtes</td>
+                            <td>Cypher, Gremlin</td>
+                            <td>Moyenne</td>
+                            <td>Excellente (relations)</td>
+                            <td>Relations complexes, réseaux</td>
+                        </tr>
+                        <tr>
+                            <td><strong>Colonnaire</strong></td>
+                            <td>Colonnes</td>
+                            <td>SQL</td>
+                            <td>Horizontale ↔️</td>
+                            <td>Excellente (OLAP)</td>
+                            <td>Analyse massive, agrégations</td>
+                        </tr>
+                        <tr>
+                            <td><strong>Séries Temporelles</strong></td>
+                            <td>Time-series data</td>
+                            <td>SQL-like + spécialisé</td>
+                            <td>Horizontale ↔️</td>
+                            <td>Optimale (temps)</td>
+                            <td>Métriques, IoT, monitoring</td>
+                        </tr>
+                        <tr>
+                            <td><strong>NewSQL</strong></td>
+                            <td>Tables relationnelles</td>
+                            <td>SQL</td>
+                            <td>Horizontale ↔️</td>
+                            <td>Très bonne</td>
+                            <td>ACID + Scale global</td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+        </div>
+        
+    </div>
+</body>
+</html>

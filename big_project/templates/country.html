@@ -19,9 +19,11 @@
             <th>Médiane de gCO2/kWh</th>
             <th>Contribution en gCO2/kWh</th>
         </tr>
+        {% set source_names = {'Coal': 'Charbon', 'Gas': 'Gaz', 'Oil': 'Pétrole', 'Hydro': 'Hydroélectricité',
+        'Renewable': 'Énergies renouvelables', 'Nuclear': 'Nucléaire'} %}
         {% for source, info in contributions.items() %}
         <tr>
-            <td>{{ source }}</td>
+            <td>{{ source_names[source] }}</td>
             <td>{{ info.percentage }}%</td>
             <td>{{ info.factor }}</td>
             <td>{{ "%.2f"|format(info.contribution) }}</td>

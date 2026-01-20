@@ -1,0 +1,134 @@
+<!DOCTYPE html>
+<html lang="fr">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Carbon Footprint Calculator</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
+</head>
+
+<body>
+    <div class="page">
+        <div class="header">
+            <div>
+                <div class="eyebrow"><span class="badge-dot"></span>Tableau de bord énergie</div>
+                <h1 class="title">Calculateur d'Empreinte Carbone</h1>
+                <p class="lead">Analysez les mix énergétiques mondiaux, estimez leur impact carbone et comparez les régions en un clin d'œil.</p>
+            </div>
+        </div>
+
+        <nav class="subnav">
+            <a href="#observations">Observations</a>
+            <a href="#selection">Sélection</a>
+            <a href="#pays">Aperçu pays</a>
+            <a href="#regions">Régions</a>
+        </nav>
+
+        <div class="grid grid-2">
+            <section class="panel" id="observations">
+                <div class="section-header">
+                    <h2>Observations clés</h2>
+                    <div class="section-meta">Synthèse rapide des tendances</div>
+                </div>
+                <ul class="observations">
+                    {% for obs in observations %}
+                    <li class="observation">{{ obs }}</li>
+                    {% endfor %}
+                </ul>
+            </section>
+        </div>
+
+        <section class="panel" id="pays">
+            <div class="section-header">
+                <h2>Aperçu express (10 pays)</h2>
+                <div class="section-meta">Prévisualisation rapide des mix</div>
+            </div>
+            <div class="table-wrapper">
+            <table class="data-table">
+                <tr>
+                    <th>Pays</th>
+                    <th>Charbon</th>
+                    <th>Gaz</th>
+                    <th>Pétrole</th>
+                    <th>Hydro</th>
+                    <th>Renouvelable</th>
+                    <th>Nucléaire</th>
+                </tr>
+                {% for c in countries %}
+                <tr>
+                    <td>{{ c['Country'] }}</td>
+                    <td>{{ c['Coal'] }}%</td>
+                    <td>{{ c['Gas'] }}%</td>
+                    <td>{{ c['Oil'] }}%</td>
+                    <td>{{ c['Hydro'] }}%</td>
+                    <td>{{ c['Renewable'] }}%</td>
+                    <td>{{ c['Nuclear'] }}%</td>
+                </tr>
+                {% endfor %}
+            </table>
+            </div>
+        </section>
+
+        <section class="panel" id="regions">
+            <div class="section-header">
+                <h2>Régions</h2>
+                <div class="section-meta">Comparaison par zone géographique</div>
+            </div>
+            <div class="table-wrapper">
+            <table class="data-table">
+                <tr>
+                    <th>Région</th>
+                    <th>Charbon</th>
+                    <th>Gaz</th>
+                    <th>Pétrole</th>
+                    <th>Hydro</th>
+                    <th>Renouvelable</th>
+                    <th>Nucléaire</th>
+                </tr>
+                {% for r in regions %}
+                <tr>
+                    <td>{{ r['Region'] }}</td>
+                    <td>{{ r['Coal'] }}%</td>
+                    <td>{{ r['Gas'] }}%</td>
+                    <td>{{ r['Oil'] }}%</td>
+                    <td>{{ r['Hydro'] }}%</td>
+                    <td>{{ r['Renewable'] }}%</td>
+                    <td>{{ r['Nuclear'] }}%</td>
+                </tr>
+                {% endfor %}
+            </table>
+            </div>
+        </section>
+
+        <section class="panel" id="selection">
+            <div class="section-header">
+                <h2>Sélectionner un pays ou une région</h2>
+                <div class="section-meta">Naviguez par pays ou par région</div>
+            </div>
+            <p class="muted">Choisissez une entité pour obtenir le détail des contributions par source d'énergie.</p>
+            <form action="/country" method="get">
+                <div class="stack">
+                    <label for="country">Entité</label>
+                    <select id="country" name="country">
+                        <optgroup label="Pays">
+                            {% for c in all_countries %}
+                            <option value="{{ c['Country'] }}">{{ c['Country'] }}</option>
+                            {% endfor %}
+                        </optgroup>
+                        <optgroup label="Régions">
+                            {% for r in all_regions %}
+                            <option value="{{ r['Region'] }}">{{ r['Region'] }}</option>
+                            {% endfor %}
+                        </optgroup>
+                    </select>
+                </div>
+                <div class="actions">
+                    <button type="submit">Voir les détails</button>
+                </div>
+            </form>
+        </section>
+    </div>
+</body>
+
+</html>

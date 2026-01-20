@@ -1,0 +1,75 @@
+﻿<!DOCTYPE html>
+<html lang="fr">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Détails pour {{ country }}</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
+</head>
+
+<body>
+    <div class="page">
+        <div class="header">
+            <div>
+                <div class="eyebrow"><span class="badge-dot"></span>Profil énergétique</div>
+                <h1 class="title">{{ country }}</h1>
+                <p class="lead">Répartition des sources et intensité carbone estimée (gCO2/kWh).</p>
+            </div>
+            <div class="actions">
+                <a class="button-link button-secondary" href="/">Retour</a>
+            </div>
+        </div>
+
+        <section class="panel">
+            <div class="section-header">
+                <h2>Mix énergétique et intensité</h2>
+                <div class="section-meta">Sources et contribution carbone</div>
+            </div>
+            <div class="table-wrapper">
+                <table class="data-table">
+                    <tr>
+                        <th>Source</th>
+                        <th>% d'utilisation</th>
+                        <th>Médiane gCO2/kWh</th>
+                        <th>Contribution gCO2/kWh</th>
+                    </tr>
+                    {% set source_names = {'Coal': 'Charbon', 'Gas': 'Gaz', 'Oil': 'Pétrole', 'Hydro': 'Hydroélectricité',
+                    'Renewable': 'Énergies renouvelables', 'Nuclear': 'Nucléaire'} %}
+                    {% for source, info in contributions.items() %}
+                    <tr>
+                        <td>{{ source_names[source] }}</td>
+                        <td>{{ info.percentage }}%</td>
+                        <td>{{ info.factor }}</td>
+                        <td>{{ "%.2f"|format(info.contribution) }}</td>
+                    </tr>
+                    {% endfor %}
+                </table>
+            </div>
+            <div class="pill" style="margin-top:14px;">Émission totale estimée : <strong>{{ "%.2f"|format(total_emission) }} gCO2/kWh</strong></div>
+        </section>
+
+        {% if not is_region %}
+        <section class="panel">
+            <div class="section-header">
+                <h2>Calcul annuel</h2>
+                <div class="section-meta">Projection sur une année complète</div>
+            </div>
+            <p class="muted">Saisissez une consommation continue pour estimer les émissions annuelles.</p>
+            <form action="/calculate" method="post">
+                <input type="hidden" name="country" value="{{ country }}">
+                <div>
+                    <label for="kw">Consommation électrique continue (kW)</label>
+                    <input id="kw" type="number" step="0.01" name="kw" required>
+                </div>
+                <div class="actions">
+                    <button type="submit">Calculer</button>
+                    <a class="button-link button-secondary" href="/">Changer de pays</a>
+                </div>
+            </form>
+        </section>
+        {% endif %}
+    </div>
+</body>
+
+</html>

@@ -1,4 +1,4 @@
-<!DOCTYPE html>
+﻿<!DOCTYPE html>
 <html lang="fr">
 
 <head>
@@ -21,53 +21,33 @@
             </div>
         </div>
 
-<<<<<<< HEAD
-    <h2>Pourcentages d'utilisation des sources</h2>
-    <table>
-        <tr>
-            <th>Source</th>
-            <th>% d’utilisation</th>
-            <th>Médiane de gCO2/kWh</th>
-            <th>Contribution en gCO2/kWh</th>
-        </tr>
-=======
         <section class="panel">
             <div class="section-header">
                 <h2>Mix énergétique et intensité</h2>
                 <div class="section-meta">Sources et contribution carbone</div>
             </div>
             <div class="table-wrapper">
-            <table class="data-table">
-                <tr>
-                    <th>Source</th>
-                    <th>% d'utilisation</th>
-                    <th>Médiane gCO2/kWh</th>
-                    <th>Contribution gCO2/kWh</th>
-                </tr>
->>>>>>> feat/graphics_project
-        {% set source_names = {'Coal': 'Charbon', 'Gas': 'Gaz', 'Oil': 'Pétrole', 'Hydro': 'Hydroélectricité',
-        'Renewable': 'Énergies renouvelables', 'Nuclear': 'Nucléaire'} %}
-        {% for source, info in contributions.items() %}
-        <tr>
-            <td>{{ source_names[source] }}</td>
-<<<<<<< HEAD
-            <td>{{ info.percentage }}%</td>
-            <td>{{ info.factor }}</td>
-            <td>{{ "%.2f"|format(info.contribution) }}</td>
-        </tr>
-        {% endfor %}
-    </table>
-=======
-                    <td>{{ info.percentage }}%</td>
-                    <td>{{ info.factor }}</td>
-                    <td>{{ "%.2f"|format(info.contribution) }}</td>
-                </tr>
-                {% endfor %}
-            </table>
+                <table class="data-table">
+                    <tr>
+                        <th>Source</th>
+                        <th>% d'utilisation</th>
+                        <th>Médiane gCO2/kWh</th>
+                        <th>Contribution gCO2/kWh</th>
+                    </tr>
+                    {% set source_names = {'Coal': 'Charbon', 'Gas': 'Gaz', 'Oil': 'Pétrole', 'Hydro': 'Hydroélectricité',
+                    'Renewable': 'Énergies renouvelables', 'Nuclear': 'Nucléaire'} %}
+                    {% for source, info in contributions.items() %}
+                    <tr>
+                        <td>{{ source_names[source] }}</td>
+                        <td>{{ info.percentage }}%</td>
+                        <td>{{ info.factor }}</td>
+                        <td>{{ "%.2f"|format(info.contribution) }}</td>
+                    </tr>
+                    {% endfor %}
+                </table>
             </div>
             <div class="pill" style="margin-top:14px;">Émission totale estimée : <strong>{{ "%.2f"|format(total_emission) }} gCO2/kWh</strong></div>
         </section>
->>>>>>> feat/graphics_project
 
         {% if not is_region %}
         <section class="panel">
